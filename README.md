@@ -1,2 +1,2 @@
 # hiscom.github.io
-HISCOM Github home page
+The HISCOM Github home page, published at https://hiscom.github.io/.
