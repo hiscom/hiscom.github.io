@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Herbarium Exchange Protocol 2020: Darwin Core Archive Guide</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css"
+          integrity="sha512-oc9+XSs1H243/FRN9Rw62Fn8EtxjEYWHXRvjS43YtueEewbS6ObfXcJNyohjHqVKFPoXXUxwc+q1K7Dee6vv9g=="
+          crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+          integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+          crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.1/styles/github.min.css"
+          integrity="sha512-7QTQ5Qsc/IL1k8UU2bkNFjpKTfwnvGuPYE6fzm6yeneWTEGiA3zspgjcTsSgln9m0cn3MgyE7EnDNkF1bB/uCw=="
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="../custom.css">
+</head>
+<body>
+<header class="text-white mb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="display-4 mt-5">HISCOM Github Home</h1>
+                <p class="lead mb-5">HISCOM is the Herbarium Information Systems Committee, the technical sub-committee
+                    of the <a href="http://chah.gov.au/" class="text-white">Council of Heads of Australasian
+                        Herbaria</a>. </p>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-info">
+                <h4>HISCOM Draft Recommendation</h4>
+            </div>
+            <h1 class="mt-5">Herbarium Exchange Protocol 2020<br> <small>Darwin Core Archive Guide</small>
+            </h1>
+            <p class="lead">How to manually generate a Darwin Core Archive suitable for the Herbarium Exchange
+                Protocol.</p>
+            <hr class="mt-5 mb-5">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="lead">A Darwin Core Archive (DwC-A)<sup><a href="#dwca">1</a></sup> is a file suitable for
+                exchanging biodiversity data. As of 2020, it is the leading solution to the problem of data exchange
+                between collections and between collections and GBIF.</p>
+
+            <p>In the simplest case, an archive can be represented by a single CSV file if it only contains Darwin
+                Core-compatible data and the header row only uses the names of Darwin Core terms. In the more common
+                case, the file is a Zip archive containing:</p>
+
+            <ul>
+                <li>One <strong>core</strong> file usually representing occurrence, taxon or event data.</li>
+                <li>One or more <strong>extension</strong> files representing other data that relates to the core data.
+                </li>
+                <li>A <strong>metadata</strong> file that specifies the relationships between the core and extension
+                    files.
+                </li>
+                <li>A <strong>resource metadata</strong> file that describes the archive’s content.</li>
+            </ul>
+
+            <p>Each data file can be a CSV or other delimited data file, while the <strong>metadata</strong> and
+                <strong>resource metadata</strong> files are small XML files defined by DwC-A and Ecological Metadata
+                Language (EML) respectively. For general use, any terms can be used in an archive so long as the sender
+                and the recipient agree on the archive’s content, but for full GBIF support, the <strong>core</strong>
+                file must contain occurrence, taxon or event data and <strong>extension</strong> files must contain data
+                types that are available in <a href="http://rs.gbif.org/extension/">GBIF’s Extension Repository</a>.</p>
+
+            <div class="alert alert-info" role="alert">
+                <i class="far fa-flag"></i> In the examples below, values such as <code>abf543g</code> are used in place
+                of a UUID or URI to aid readability.
+            </div>
+
+            <h2>Export the data</h2>
+
+            <p>The first step in preparing an archive is to generate a set of delimited text files that contain the data
+                to be sent. Herbarium exchange is usually focussed on specimens, so the core file should contain
+                occurrence data.
+
+            <p>The names of columns in a file’s header row do not need to match the names of terms in Darwin Core,
+                HISPID 6 or the other standards used in the Herbarium Exchange Protocol 2020, but in this case you <em>must</em>
+                use a <strong>metadata</strong> file to specify the data type for each column.</p>
+
+            <h3>Occurrences</h3>
+
+            <p>Report a set of occurrence data fields from your institutional specimen database. If it is possible to
+                add a header row, do this as it can be difficult to add it later if the data file is large.</p>
+
+            <div class="copy-clipboard">
+                <button class="btn btn-outline-secondary btn-sm clip"
+                        data-clipboard-target="#fig1"
+                        title="Copy to the clipboard">
+                    <i class="fas fa-clipboard"></i> Copy
+                </button>
+            </div>
+            <figure class="figure">
+            <pre class="mb-1"><code id="fig1" class="csv">occurrenceID,basisOfRecord,recordedBy,recordedByID,typeOfType,typeStatus
+abf543g,PreservedSpecimen,"Mueller, F.",https://www.wikidata.org/wiki/Q708002,lectotype,"lectotype of Banksia ornata Meisn. 1854. Plantae Muellerianae: Proteaceae. Linnaea: ein Journal für die Botanik in ihrem ganzen Umfange, oder Beiträge zur Pflanzenkunde 26"
+nqy908e,PreservedSpecimen,"Thiele, K.R.",https://orcid.org/0000-0002-6658-6636,,
+jjn449z,PreservedSpecimen,"Nicolle, D.",https://viaf.org/viaf/92803422,,
+qao951r,PreservedSpecimen,"Maslin, B.R.|Reid, J.E.",https://viaf.org/viaf/94978723|,,</code></pre>
+                <figcaption class="figure-caption">Figure 1. Example occurrence data for the <strong>core</strong> file.
+                    Note that this includes the recommended fields for agent unique identifiers and type status.
+                </figcaption>
+            </figure>
+
+            <p>For each additional data type that you want to exchange, report the fields of that data to separate
+                <strong>extension</strong> files. Note that a separate file is only required if the archive contains
+                many rows in the <strong>extension</strong> file that point to a single row in the <strong>core</strong>
+                file.</p>
+
+            <h3>Resource Relationships</h3>
+
+            <div class="copy-clipboard">
+                <button class="btn btn-outline-secondary btn-sm clip"
+                        data-clipboard-target="#fig2"
+                        title="Copy to the clipboard">
+                    <i class="fas fa-clipboard"></i> Copy
+                </button>
+            </div>
+            <figure class="figure">
+                <pre class="mb-1"><code id="fig2" class="csv">resourceID,relationshipOfResource,relatedResoureID
+neo292a,duplicate of,abf543g
+sar404e,duplicate of,nqy908e
+cpz098p,duplicate of,qao951r</code></pre>
+                <figcaption class="figure-caption">Figure3. Example resource relationship data for specimen duplicate
+                    provenance.
+                </figcaption>
+            </figure>
+
+            <h3>Permits</h3>
+
+            <div class="copy-clipboard">
+                <button class="btn btn-outline-secondary btn-sm clip"
+                        data-clipboard-target="#fig3"
+                        title="Copy to the clipboard">
+                    <i class="fas fa-clipboard"></i> Copy
+                </button>
+            </div>
+            <figure class="figure">
+                <pre class="mb-1"><code id="fig3" class="csv">occurrenceID,permitStatus,permitType,permitURI
+abf543g,Permit not required,Other,
+nqy908e,Permit available,Collecting Permit,3ff78acc
+nqy908e,Permit available,Import Permit,8c583b91
+jjn449z,Permit available,Collecting Permit,2779127f
+qao951r,Permit available,Collecting Permit,bffd544b</code></pre>
+                <figcaption class="figure-caption">Figure 2. Example permit data. Note that two of the entries point to
+                    the same occurrence record.
+                </figcaption>
+            </figure>
+
+            <p>In each file, confirm that the data in each column follows the requirements of the term’s vocabulary and
+                modify the data if necessary. We will describe later how to validate your archive using the DwC-A
+                Validator.</p>
+
+            <h2>Create the Metadata file</h2>
+
+            <p>Open a text editor and create the metadata XML file by pasting in the following XML and editing the files
+                and field entries to match your data. The <a href="https://dwc.tdwg.org/text/#2-metafile-content">Metafile
+                    documentation</a> explains the elements in the XML structure. An example of a metadata file is
+                available at: <a href="https://github.com/rbgvictoria/dehispidator/blob/master/archive/meta.xml">https://github.com/rbgvictoria/dehispidator/blob/master/archive/meta.xml</a>.
+            </p>
+
+            <div class="copy-clipboard">
+                <button class="btn btn-outline-secondary btn-sm clip"
+                        data-clipboard-target="#fig4"
+                        title="Copy to the clipboard">
+                    <i class="fas fa-clipboard"></i> Copy
+                </button>
+            </div>
+            <figure class="figure">
+                <pre class="mb-1"><code id="fig4" class="xml">&lt;?xml version="1.0" encoding="UTF-8"?>
+    &lt;archive xmlns="http://rs.tdwg.org/dwc/text/"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://rs.tdwg.org/dwc/text/
+                                 http://rs.tdwg.org/dwc/text/tdwg_dwc_text.xsd">
+        &lt;core rowType="http://rs.tdwg.org/dwc/xsd/simpledarwincore/SimpleDarwinRecord"
+              ignoreHeaderLines="1" linesTerminatedBy="\r\n" encoding="UTF-8">
+            &lt;files>&lt;location>occurrences.csv&lt;/location>&lt;/files>
+            &lt;id index="0"/>
+            &lt;field index="0" term="http://rs.tdwg.org/dwc/terms/occurrenceID"/>
+            &lt;field index="1" term="http://rs.tdwg.org/dwc/terms/basisOfRecord"/>
+            &lt;field index="2" term="http://rs.tdwg.org/dwc/terms/recordedBy"/>
+            &lt;field index="3" term="http://rs.tdwg.org/dwc/iri/recordedBy"/>
+            &lt;field index="4" term="http://hiscom.chah.org.au/hispid/terms/typeOfType"
+                   vocabulary="http://hiscom.chah.org.au/hispid/vocabulary/type_of_type.xml"/>
+            &lt;field index="5" term="http://rs.tdwg.org/dwc/terms/typeStatus"/>
+        &lt;/core>
+        &lt;extension rowType="http://rs.tdwg.org/dwc/terms/ResourceRelationship"
+                   ignoreHeaderLines="1" linesTerminatedBy="\r\n" encoding="UTF-8">
+            &lt;files>&lt;location>resource-relationships.csv&lt;/location>&lt;/files>
+            &lt;coreId index="2"/>
+            &lt;field index="0" term="http://rs.tdwg.org/dwc/terms/resourceID"/>
+            &lt;field index="1" term="http://rs.tdwg.org/dwc/terms/relationshipOfResource"/>
+            &lt;field index="2" term="http://rs.tdwg.org/dwc/terms/relatedResourceID"/>
+        &lt;/extension>
+        &lt;extension rowType="http://data.ggbn.org/schemas/ggbn/terms/Permit"
+                   ignoreHeaderLines="1" linesTerminatedBy="\r\n" encoding="UTF-8">
+            &lt;files>&lt;location>permits.csv&lt;/location>&lt;/files>
+            &lt;coreId index="0"/>
+            &lt;field index="1" term="http://data.ggbn.org/schemas/ggbn/terms/permitStatus"
+                   vocabulary="http://rs.gbif.org/vocabulary/ggbn/permit_status.xml"/>
+            &lt;field index="2" term="http://data.ggbn.org/schemas/ggbn/terms/permitType"
+                   vocabulary="http://rs.gbif.org/vocabulary/ggbn/permit_type.xml"/>
+            &lt;field index="3" term="http://data.ggbn.org/schemas/ggbn/terms/permitURI"/>
+        &lt;/extension>
+    &lt;/archive></code></pre>
+                <figcaption class="figure-caption">Figure 4. Example <strong>metadata</strong> file content.
+                </figcaption>
+            </figure>
+
+            <h2>Create the resource metadata file</h2>
+
+            <p>Open a text editor and create a file called “resource.xml”. Paste in the following XML and edit the field
+                entries to match your details.</p>
+
+            <figure class="figure">
+                <pre class="mb-1"><code id="fig5" class="xml">&lt;?xml version="1.0"?>
+&lt;eml:eml
+        xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 xsd/eml.xsd">
+
+    &lt;dataset>
+        &lt;title>Herbarium exchange for ...&lt;/title>
+        &lt;creator id="https://orcid.org/0000-0000-0000-0000">
+            &lt;individualName>
+                &lt;givenName>Staff&lt;/givenName>
+                &lt;surName>Member&lt;/surName>
+            &lt;/individualName>
+            &lt;electronicMailAddress>staff.member@example.com&lt;/electronicMailAddress>
+            &lt;userId directory="https://orcid.org">https://orcid.org/0000-0000-0000-0000&lt;/userId>
+        &lt;/creator>
+        &lt;keywordSet>
+            &lt;keyword>herbarium&lt;/keyword>
+            &lt;keyword>exchange&lt;/keyword>
+        &lt;/keywordSet>
+        &lt;contact>
+            &lt;references>https://orcid.org/0000-0000-0000-0000&lt;/references>
+        &lt;/contact>
+    &lt;/dataset>
+&lt;/eml:eml></code></pre>
+                <figcaption class="figure-caption">Figure 5. Example <strong>resource metadata</strong> file content.
+                </figcaption>
+            </figure>
+
+            <h2>Create the archive</h2>
+
+            <p>Archive each of the above files into a Zip file and you’ve successfully created a Darwin Core Text
+                Archive.</p>
+
+            <ul>
+                <li>On Windows, you can create a zip file containing the using 7-Zip or WinZip and either open your data
+                    files, or drag them into the 7-Zip or WinZip window and save.
+                </li>
+                <li>On Macintosh, you can select all the files, ctrl click on them and choose “Compress .. items”. The
+                    resulting zip archive will be called “Archive.zip” in the same directory.
+                </li>
+            </ul>
+
+            <h2>Validate the archive</h2>
+
+            <p>To confirm that the archive’s structure and data is correctly formed,
+                <a href="https://www.gbif.org/tools/data-validator">check it using GBIF’s data validator</a>.</p>
+
+            <h2>Send it</h2>
+
+            <p>This file can now be:</p>
+
+            <ul>
+                <li>sent by email (if it is small enough),</li>
+                <li>placed on a file sharing site such as DropBox,</li>
+                <li>uploaded to AVH/ALA manually, or</li>
+                <li>placed on an externally-visible web server for download by others, such as the ALA.</li>
+            </ul>
+            <hr class="mt-5 mb-5">
+            <h2>References</h2>
+            <ol class="mb-5">
+                <li><a id="dwca">GBIF (2017)</a>. Darwin Core Archives – How-to Guide, version 2.0, released on 9 May
+                    2011, (contributed by Remsen D, Braak, K, Döring M, Robertson, T), Copenhagen: Global Biodiversity
+                    Information Facility, accessible online at:
+                    <a href="https://github.com/gbif/ipt/wiki/DwCAHowToGuide">https://github.com/gbif/ipt/wiki/DwCAHowToGuide</a>.
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.js"
+        integrity="sha512-1lagjLfnC1I0iqH9plHYIUq3vDMfjhZsLy9elfK89RBcpcRcx4l+kRJBSnHh2Mh6kLxRHoObD1M5UTUbgFy6nA=="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"
+        integrity="sha512-ubuT8Z88WxezgSqf3RLuNi5lmjstiJcyezx34yIU2gAHonIi27Na7atqzUZCOoY4CExaoFumzOsFQ2Ch+I/HCw=="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"
+        integrity="sha512-8qmis31OQi6hIRgvkht0s6mCOittjMa9GMqtK9hes5iEQBQE/Ca6yGE5FsW36vyipGoWQswBj/QBm2JR086Rkw=="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.1/highlight.min.js"
+        integrity="sha512-U12+KlhI3X2EY7U4NJZ+O0wujKcaMQZHABtaiZtE8UrPiK1O3Y4cjBe0mMFyyBptdaf+eh45hqNdsayeLQcneg=="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"
+        integrity="sha512-hDWGyh+Iy4Mr9AHOzUP2+Y0iVPn/BwxxaoSleEjH/i1o4EVTF/sh0/A1Syii8PWOae+uPr+T/KHwynoebSuAhw=="
+        crossorigin="anonymous"></script>
+<script>hljs.initHighlightingOnLoad();
+new ClipboardJS('.clip');
+</script>
+</body>
+</html>

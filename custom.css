@@ -1,0 +1,26 @@
+header {
+    background-color: #69c;
+}
+figure {
+    display: block !important;
+    padding: 1.5rem;
+}
+pre {
+    font-size: 1rem;
+}
+.copy-clipboard {
+    display: block;
+    position: relative;
+}
+.copy-clipboard .btn {
+    position: absolute;
+    top: -.5rem;
+    right: 1.5rem;
+    z-index: 10;
+    display: block;
+    padding: .25rem .5rem;
+}
+sup {
+    color: #eee;
+    padding: .25rem;
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<eml:eml
+        xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 xsd/eml.xsd">
+
+    <dataset>
+        <title>Herbarium exchange for ...</title>
+        <creator id="https://orcid.org/0000-0002-6108-0572">
+            <individualName>
+                <givenName>Ben</givenName>
+                <surName>Richardson</surName>
+            </individualName>
+            <electronicMailAddress>ben.richardson@dbca.wa.gov.au</electronicMailAddress>
+            <userId directory="https://orcid.org">https://orcid.org/0000-0002-6108-0572</userId>
+        </creator>
+        <keywordSet>
+            <keyword>herbarium</keyword>
+            <keyword>exchange</keyword>
+        </keywordSet>
+        <contact>
+            <references>https://orcid.org/0000-0002-6108-0572</references>
+        </contact>
+    </dataset>
+</eml:eml>

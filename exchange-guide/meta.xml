@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archive xmlns="http://rs.tdwg.org/dwc/text/"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://rs.tdwg.org/dwc/text/
+                             http://rs.tdwg.org/dwc/text/tdwg_dwc_text.xsd">
+    <core rowType="http://rs.tdwg.org/dwc/xsd/simpledarwincore/SimpleDarwinRecord"
+          ignoreHeaderLines="1" linesTerminatedBy="\r\n" encoding="UTF-8">
+        <files>
+            <location>occurrences.csv</location>
+        </files>
+        <id index="0"/>
+        <field index="0" term="http://rs.tdwg.org/dwc/terms/occurrenceID"/>
+        <field index="1" term="http://rs.tdwg.org/dwc/terms/basisOfRecord"/>
+        <field index="2" term="http://rs.tdwg.org/dwc/terms/recordedBy"/>
+        <field index="3" term="http://rs.gbif.org/terms/1.0/recordedByID"/>
+        <field index="4" term="http://hiscom.chah.org.au/hispid/terms/typeOfType"
+               vocabulary="http://hiscom.chah.org.au/hispid/vocabulary/type_of_type.xml"/>
+        <field index="5" term="http://rs.tdwg.org/dwc/terms/typeStatus"/>
+    </core>
+    <extension rowType="http://rs.tdwg.org/dwc/terms/ResourceRelationship"
+               ignoreHeaderLines="1" linesTerminatedBy="\r\n" encoding="UTF-8">
+        <files>
+            <location>resource-relationships.csv</location>
+        </files>
+        <coreid index="2"/>
+        <field index="0" term="http://rs.tdwg.org/dwc/terms/resourceID"/>
+        <field index="1" term="http://rs.tdwg.org/dwc/terms/relationshipOfResource"/>
+        <field index="2" term="http://rs.tdwg.org/dwc/terms/relatedResourceID"/>
+    </extension>
+    <extension rowType="http://data.ggbn.org/schemas/ggbn/terms/Permit"
+               ignoreHeaderLines="1" linesTerminatedBy="\r\n" encoding="UTF-8">
+        <files>
+            <location>permits.csv</location>
+        </files>
+        <coreid index="0"/>
+        <field index="1" term="http://data.ggbn.org/schemas/ggbn/terms/permitStatus"
+               vocabulary="http://rs.gbif.org/vocabulary/ggbn/permit_status.xml"/>
+        <field index="2" term="http://data.ggbn.org/schemas/ggbn/terms/permitType"
+               vocabulary="http://rs.gbif.org/vocabulary/ggbn/permit_type.xml"/>
+        <field index="3" term="http://data.ggbn.org/schemas/ggbn/terms/permitURI"/>
+    </extension>
+</archive>
