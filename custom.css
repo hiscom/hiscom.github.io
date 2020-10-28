@@ -1,12 +1,23 @@
 header {
     background-color: #69c;
 }
+.mou {
+    color: #999;
+    text-transform: uppercase;
+}
+.recommendation .alert-heading {
+    text-transform: uppercase;
+}
 figure {
     display: block !important;
     padding: 1.5rem;
 }
 pre {
     font-size: 1rem;
+}
+code {
+    color: #666;
+    min-font-size: 1rem !important;
 }
 .copy-clipboard {
     display: block;
@@ -20,7 +31,16 @@ pre {
     display: block;
     padding: .25rem .5rem;
 }
+.alert {
+    border-radius: 1pt;
+}
 sup {
     color: #eee;
     padding: .25rem;
+}
+li {
+    margin-bottom: 0.25rem;
+}
+.card, .card-header:first-child {
+    border-radius: 1pt;
 }

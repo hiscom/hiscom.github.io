@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Herbarium Exchange Protocol 2020: Darwin Core Archive Guide</title>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css"
@@ -24,9 +25,10 @@
         <div class="row">
             <div class="col">
                 <h1 class="display-4 mt-5">HISCOM Github Home</h1>
-                <p class="lead mb-5">HISCOM is the Herbarium Information Systems Committee, the technical sub-committee
-                    of the <a href="http://chah.gov.au/" class="text-white">Council of Heads of Australasian
-                        Herbaria</a>. </p>
+                <p class="lead mb-5">HISCOM is the Herbarium Information Systems
+                    Committee, the technical sub-committee of the
+                    <a href="http://chah.gov.au/" class="text-white">Council of
+                        Heads of Australasian Herbaria</a>. </p>
             </div>
         </div>
     </div>
@@ -34,62 +36,531 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <div class="alert alert-info">
-                <h4>HISCOM Draft Recommendation</h4>
+            <div class="alert alert-warning" role="alert">HISCOM Draft
+                Recommendation
             </div>
-            <h1 class="mt-5">Herbarium Exchange Protocol 2020<br> <small>Darwin Core Archive Guide</small>
-            </h1>
-            <p class="lead">How to manually generate a Darwin Core Archive suitable for the Herbarium Exchange
-                Protocol.</p>
+            <h5 class="mou">Memorandum of Understanding</h5>
+            <h1 class="mt-5">Herbarium Exchange Protocol 2020</h1>
             <hr class="mt-5 mb-5">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <p class="lead">A Darwin Core Archive (DwC-A)<sup><a href="#dwca">1</a></sup> is a file suitable for
-                exchanging biodiversity data. As of 2020, it is the leading solution to the problem of data exchange
-                between collections and between collections and GBIF.</p>
+            <h2>Purpose</h2>
+            <p>To update the Herbarium Exchange Protocols to allow new data to
+                be exchanged to support emerging functionality in ALA and the
+                biodiversity informatics network in general.</p>
 
-            <p>In the simplest case, an archive can be represented by a single CSV file if it only contains Darwin
-                Core-compatible data and the header row only uses the names of Darwin Core terms. In the more common
-                case, the file is a Zip archive containing:</p>
+            <h2>Recommendations</h2>
+            <div class="alert alert-info">
+                <p>That herbaria adopt this protocol and work towards the
+                    recording and exchange of the proposed categories of
+                    data.</p>
+                <hr>
+                <p class="mb-0">That this protocol be implemented in herbaria by
+                    30 June 2021.</p>
+            </div>
 
-            <ul>
-                <li>One <strong>core</strong> file usually representing occurrence, taxon or event data.</li>
-                <li>One or more <strong>extension</strong> files representing other data that relates to the core data.
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a href="#background" class="nav-link">Background</a>
                 </li>
-                <li>A <strong>metadata</strong> file that specifies the relationships between the core and extension
-                    files.
+                <li class="nav-item">
+                    <a href="#resourcing" class="nav-link">Resourcing</a>
                 </li>
-                <li>A <strong>resource metadata</strong> file that describes the archive’s content.</li>
+                <li class="nav-item">
+                    <a href="#terms" class="nav-link">Terms</a>
+                </li>
+                <li class="nav-item"><a href="#guide" class="nav-link">Darwin
+                    Core Archive Guide </a>
+                </li>
             </ul>
 
-            <p>Each data file can be a CSV or other delimited data file, while the <strong>metadata</strong> and
-                <strong>resource metadata</strong> files are small XML files defined by DwC-A and Ecological Metadata
-                Language (EML) respectively. For general use, any terms can be used in an archive so long as the sender
-                and the recipient agree on the archive’s content, but for full GBIF support, the <strong>core</strong>
-                file must contain occurrence, taxon or event data and <strong>extension</strong> files must contain data
-                types that are available in <a href="http://rs.gbif.org/extension/">GBIF’s Extension Repository</a>.</p>
+            <h1 id="background">Background</h1>
+
+            <p>Herbaria in Australasia have transferred data in several formats
+                in the last 10–20 years. Following the release of HISPID, it was
+                common for herbaria to export and import HISPID version 3 or 4
+                data files. More recently, herbaria have used the herbarium
+                community’s BioCASE providers to serve HISPID 5 data, or
+                generated Darwin Core-based spreadsheets and CSV files. All but
+                2–3 Australian herbaria now support the exchange of data in
+                Darwin Core. In New Zealand, the standard has been Darwin Core
+                for several years.</p>
+
+            <p>With the availability of HISPID 6 (an extension of Darwin Core)
+                and the availability of many other Darwin Core extensions, it is
+                time to consider what a modern, efficient method of data
+                transfer looks like for the Australasian herbarium
+                community.</p>
+
+            <p>Australasian herbaria are faced with challenges in 2020 that
+                can’t be met with our current exchange protocol. This includes
+                the need for permit and unique agent data, a revision to the way
+                type data is exchanged and a decision on how herbaria formalise
+                the link between duplicate specimens and the way this data is
+                exchanged.</p>
+
+            <p>Data exchange using <strong>HISPID version 3 and 4</strong>
+                formats suffer from several issues:</p>
+
+            <ul>
+                <li>There are no permit fields in this standard, which precludes
+                    it from being used if an herbarium needs to send Nagoya
+                    Protocol data.
+                </li>
+
+                <li>There are no fields in this standard for the transfer of
+                    unique URIs for collectors and identifiers of specimens.
+                </li>
+            </ul>
+
+            <p>Data exchange using <strong>HISPID 5</strong> format, which is
+                based on ABCD 2.06, suffers from several issues:</p>
+            <ul>
+                <li>The file format is complex, making it more difficult for
+                    under-resourced institutions or very small herbaria to
+                    exchange data.
+                </li>
+
+                <li>There are no fields in this standard for the transfer of
+                    unique URIs for collectors and identifiers of specimens.
+                </li>
+            </ul>
+
+            <p>The <strong>limitations of current exchange formats</strong> also
+                include:</p>
+
+            <ul>
+                <li>Plain CSV and other delimited text files do not specify a
+                    character set, making it difficult to determine how the file
+                    should be read correctly to preserve diacritical marks.
+                    Additionally, there is no way to formally signal that the
+                    end of the document has been reached (other than reaching
+                    the end of the document). This is an issue for network data
+                    transfer because it is not always clear whether the transfer
+                    ended prematurely. (These problems affect the CSV files in a
+                    Darwin Core CSV file too, but we will explain how to correct
+                    this later.)
+                </li>
+
+                <li>While XML stipulates a character set and defines the end of
+                    a document, it is excessively verbose. This makes it both
+                    difficult to create without the help of software (a problem
+                    for small institutions) and excessively large in file size.
+                </li>
+
+                <li>HISPID versions before 5 are no longer suitable for use, as
+                    there are no permit fields in these standards. This
+                    precludes them from being used if an herbarium needs to send
+                    Nagoya Protocol data. There is additionally no way to
+                    specify a character set as part of the data file.
+                </li>
+
+                <li>Data exchange in HISPID 5 (ABCD 2.06) format is no longer
+                    suitable for use because there is no support for Collector
+                    IDs. Additionally, the file format is complex, making it
+                    more difficult for under-resourced institutions or very
+                    small herbaria to exchange data. It also slows the rate of
+                    adoption of changes to exchange processes in larger
+                    institutions.
+                </li>
+            </ul>
+
+            <p>A <strong>Darwin Core Archive</strong> provides the following
+                features:</p>
+
+            <p><strong>Ease of use</strong>: A Darwin Core Archive comprises one
+                or more CSV files containing columns of data using Darwin Core,
+                HISPID 6, GGBN and other terminology as noted in this document.
+                A CSV file is easily created, even by hand, if necessary. In
+                comparison, XML is difficult to create and is usually only
+                managed through software.</p>
+
+            <p><strong>Comparatively small archives</strong>: By adopting CSV, a
+                file is small when compared to the equivalent output using XML
+                and BioCASe.</p>
+
+            <p><strong>Up-to-date terminology</strong>: By adopting a term-based
+                vocabulary based on Darwin Core and HISPID 6, we gain access to
+                recent terminologies, including ABCD 3.</p>
+
+            <p><strong>Comparatively easy extension when a new property needs to
+                be exchanged</strong>: By adopting vocabularies (HISPID 6,
+                Darwin Core, ABCD 3, GGBN) rather than a document schema (HISPID
+                5, ABCD 2.06), it is easier to add a new property to an exchange
+                archive.</p>
+
+            <p><strong>Typed data</strong>: Darwin Core Archive’s metafile
+                provides metadata about the CSV files in an archive. This
+                includes a character set for the data files and the type of data
+                that is being provided in each row and column of each CSV.
+                Additionally, a Zip file comes with its own protection against
+                premature end of file errors. These mostly avoid the problem we
+                identified earlier with CSV data files.</p>
+
+            <h1 id="resourcing">Resourcing</h1>
+
+            <p>Institutions that use this MoU to exchange data should (a) be
+                able to export the data <em>for each property</em> into an
+                exchange document and (b) be able to import the data <em>from
+                    each property</em> in the exchange document into local
+                systems. These basic requirements will ensure that it will
+                eventually possible to accurately exchange provenance,
+                collector, type, and permit data between herbaria. Once this
+                occurs, it also becomes possible for institutions to be notified
+                when these properties of a linked specimen are changed by
+                another institution.</p>
+
+            <p>There is a resourcing issue for an institution to make changes to
+                its file exchange protocols to allow it to take part in the
+                revised exchange protocol. Some work will be required to
+                determine a mapping between the local institution’s collection
+                database and the terms in this MoU and it may be necessary to
+                hire external consultants to do this. The cost of this work is
+                dependent upon the ease of access to the required data, the
+                availability of staff with the skills needed to complete the
+                work, the need for external consultants and the fees they
+                charge.</p>
+
+            <p>Many herbaria already have the capability to generate and
+                exchange documents of this kind and there is a general push for
+                the developers of collections management software such as
+                Specify to be more closely involved in the need for Darwin Core
+                support.</p>
+
+            <h1 id="terms">Terms</h1>
+
+            <p>The terms included in this MoU are those in the
+                <a href="https://github.com/hiscom/business/blob/master/mou-technical-addendum.md">
+                    AVH MoU Technical Addendum (2019)</a> plus the following
+                additional terms.</p>
+
+            <h2>Permits</h2>
+
+            <p>The Nagoya Protocol on Access and Benefit Sharing establishes an
+                obligation on signatories—including Australia—to document the
+                terms of any agreement an institution has made for the use of
+                genetic resources. The details of permits granted when
+                collecting plant specimens must be shared with other
+                institutions so that there is legal clarity for ongoing use of
+                herbarium specimens for duplicate specimens. To support the
+                transfer of permit data, we adopt the
+                <a href="https://wiki.ggbn.org/ggbn/GGBN_Data_Standard_v1#GGBN_Permit_Vocabulary">GGBN
+                    Permit Vocabulary</a>, and in particular Darwin Core’s <a
+                        href="http://rs.gbif.org/extension/ggbn/permit.xml">GGBN
+                    Permit Extension</a>.</p>
+
+            <p>In the AVH MoU Technical Addendum, only <code>permitStatus</code>
+                is necessary for AVH, and any terms included in the data sent to
+                ALA are automatically displayed to the public. As permit data
+                identifies a person by their permit number, this data is
+                sensitive and must be treated like other kinds of private data.
+            </p>
+
+            <p>For herbarium exchange, we must provide a repeating set of the
+                following terms, one set per permit.</p>
+
+            <dl>
+                <dt class="h3"><code>permitStatus</code></dt>
+                <dd><p class="mb-0">
+                    <a href="http://data.ggbn.org/schemas/ggbn/terms/permitStatus">http://data.ggbn.org/schemas/ggbn/terms/permitStatus</a>
+                </p>
+                    <p><em>Required</em></p>
+                    <p>The status of the permit, taken from one of the
+                        <a href="http://rs.gbif.org/vocabulary/ggbn/permit_status.xml">allowed
+                            values</a>, for example: <code>Permit
+                            available</code>. When there are no permits granted
+                        to a specimen, this value must be set to <code>Permit
+                            not required</code>. </p>
+
+                </dd>
+                <dt class="h3"><code>permitType</code></dt>
+                <dd>
+                    <p class="mb-0">
+                        <a href="http://data.ggbn.org/schemas/ggbn/terms/permitType">
+                            http://data.ggbn.org/schemas/ggbn/terms/permitType</a>
+                    </p>
+                    <p><em>Required</em></p>
+                    <p>The type of permit assigned, taken from one of the <a
+                            href="http://rs.gbif.org/vocabulary/ggbn/permit_type.xml">allowed
+                        values</a>, for example: <code>Collecting Permit</code>.
+                        When there are no permits granted to a specimen, this
+                        value must be set to <code>Other</code>.</p>
+                </dd>
+
+                <dt class="h3"><code>permitStatusQualifier</code></dt>
+                <dd>
+                    <p class="mb-0">
+                        <a href="http://data.ggbn.org/schemas/ggbn/terms/permitStatusQualifier">http://data.ggbn.org/schemas/ggbn/terms/permitStatusQualifier</a>
+                    </p>
+                    <p><em>Optional</em></p>
+                    <p>Free text, perhaps describing why a certain permit was
+                        not required or why permitStatus is unknown.</p>
+
+                </dd>
+
+                <dt class="h3"><code>permitURI</code></dt>
+                <dd>
+                    <p class="mb-0">
+                        <a href="http://data.ggbn.org/schemas/ggbn/terms/permitURI">http://data.ggbn.org/schemas/ggbn/terms/permitURI</a>
+                    </p>
+                    <p><em>Optional</em></p>
+                    <p>The unique identifier of the permit, such as a UUID.</p>
+                </dd>
+
+                <dt class="h3"><code>permitText</code></dt>
+                <dd>
+                    <p class="mb-0">
+                        <a href="http://data.ggbn.org/schemas/ggbn/terms/permitText">http://data.ggbn.org/schemas/ggbn/terms/permitText</a>
+                    </p>
+                    <p><em>Optional</em></p>
+                    <p>Free text detail of the permit.</p>
+                </dd>
+            </dl>
+
+            <h2>Types and Type Status</h2>
+
+            <p>The specimen or specimens that a taxonomist uses to describe and
+                name a new species is a type specimen. These are the most
+                important specimens in a collection.</p>
+
+            <p>For AVH, we exchange type information using
+                <a href="https://hiscom.github.io/hispid/terms/#typeStatus"><code>typeStatus</code>
+                </a> only, but in herbarium exchange it is preferable to
+                separate some of that data for easier consumption by also using
+                <code>typeOfType</code> from HISPID 6.</p>
+
+            <dl>
+                <dt class="h3"><code>typeStatus</code></dt>
+                <dd>
+                    <p class="mb-0">
+                        <a href="http://rs.tdwg.org/dwc/terms/typeStatus">http://rs.tdwg.org/dwc/terms/typeStatus</a>
+                    </p>
+                    <p><em>Required</em></p>
+                    <p>A list (concatenated and separated) of nomenclatural
+                        types (type status, typified scientific name,
+                        publication) applied to the subject.</p>
+                </dd>
+                <dt class="h3"><code>typeOfType</code></dt>
+                <dd>
+                    <p class="mb-0">
+                        <a href="https://hiscom.github.io/hispid/terms/#typeOfType">http://hiscom.chah.org.au/hispid/terms/typeOfType</a>
+                    </p>
+                    <p><em>Required</em></p>
+                    <p>The type status of the collection object.</p>
+                </dd>
+            </dl>
+
+            <h2>Unique identifiers for agents</h2>
+
+            <p>The identity of the people who collected or identified a specimen
+                are important to the taxonomic process. Unfortunately, there is
+                immense diversity in the way humans represent names.
+                Additionally, a person’s name and its representation can change
+                over time.</p>
+
+            <p>For example, there are many ways to refer to
+                <a href="https://en.wikipedia.org/wiki/Ferdinand_von_Mueller">Ferdinand
+                    von Mueller</a>:</p>
+
+            <ul>
+                <li>Ferdinand Jakob Heinrich von Mueller</li>
+                <li>Baron Ferdinand von Mueller</li>
+                <li>Ferdinand von Müller</li>
+                <li>F.J.H. von Mueller</li>
+                <li>F.Muell</li>
+            </ul>
+
+            <p>Identifying the collectors and identifiers of specimens using
+                unique identifiers makes it possible to disambiguate people with
+                similar names as well as check for error in their names. Several
+                identifier standards now exist to uniquely represent a person in
+                a scientific setting including ORCID, Wikidata and VIAF.</p>
+
+            <div class="card mb-4">
+                <div class="card-header">Standards</div>
+                <div class="card-body">
+                    <h4>ORCID iD</h4>
+
+                    <blockquote class="blockquote">
+                        <p class="mb-0">The ORCID iD is an https URI with a
+                            16-digit [..] International Standard Name Identifier
+                            (ISNI), e.g. https://orcid.org/0000-0001-2345-6789.
+                            [..] The ORCID iD is expressed as an https URI, i.e.
+                            the 16-digit identifier is preceded by &quot;https://orcid.org/&quot;.
+                            A hyphen is inserted every 4 digits of the
+                            identifier to aid readability. [..] When stored, the
+                            ORCID iD should be expressed as a full https URI:
+                            https://orcid.org/xxxx-xxxx-xxxx-xxxx, complete with
+                            the protocol (https://), and with hyphens in the
+                            identifier (xxxx-xxxx-xxxx-xxxx).</p>
+                        <footer class="blockquote-footer">
+                            <a href="https://support.orcid.org/hc/en-us/articles/360006897674">Structure
+                                of the ORCID Identifier</a>
+                        </footer>
+                    </blockquote>
+
+                    <h4>Wikidata ID</h4>
+
+                    <blockquote class="blockquote">
+                        <p class="mb-0">In Wikidata, items are used to represent
+                            all the _things_ in human knowledge [..] Each item
+                            has a unique identifier (starting with a Q prefix)
+                            and its own page in the Wikidata main namespace.</p>
+                        <footer class="blockquote-footer">
+                            <a href="https://www.wikidata.org/wiki/Help:Items">Help:Items</a>
+                        </footer>
+                    </blockquote>
+
+                    <blockquote class="blockquote">
+                        <p class="mb-0">Each item or property has a persistent
+                            URI that you obtain by appending its ID (such as Q42
+                            or P12) to the Wikidata concept namespace:
+                            http://www.wikidata.org/entity/.</p>
+                        <footer class="blockquote-footer">
+                            <a href="https://www.wikidata.org/wiki/Wikidata:Data_access">Wikidata:Data
+                                access</a>
+                        </footer>
+                    </blockquote>
+
+                    <h4>VIAF</h4>
+
+                    <blockquote class="blockquote">
+                        <p class="mb-0">To facilitate interoperability, OCLC
+                            strongly encourages the use of VIAF URI's in all
+                            appropriate circumstances. The canonical structure
+                            of a VIAF URI is http://viaf.org/viaf/[numerical
+                            value] (Example: http://viaf.org/viaf/49224511).</p>
+                        <footer class="blockquote-footer">
+                            <a href="http://viaf.org/viaf/data/">VIAF
+                                Dataset</a>
+                        </footer>
+                    </blockquote>
+                </div>
+            </div>
+
+            <!-- FIXME: Clear up the lack of support in GBIF for the dwciri
+            namespace. -->
+
+            <p>In the example of Ferdinand von Mueller, all variations in the
+                way he is cited can be handled by storing and using his Wikidata
+                ID, <code>https://www.wikidata.org/entry/Q708002</code>. In
+                Darwin Core, the preferred way to refer to a collector’s unique
+                id is by using the equivalent term in the
+                <a href="https://dwc.tdwg.org/rdf/#25-terms-in-the-dwciri-namespace-normative">dwciri
+                    namespace</a>, but <strong>as of November 2020, this is not
+                    supported for use with GBIF</strong>. A specimen collected
+                by Ferdinand von Mueller could be represented using both his
+                name and his Wikidata ID using a column linked to
+                <a href="http://rs.tdwg.org/dwc/terms/recordedBy">http://rs.tdwg.org/dwc/terms/recordedBy</a>
+                and a column linked to
+                <a href="http://rs.tdwg.org/dwc/iri/recordedBy">http://rs.tdwg.org/dwc/iri/recordedBy</a>.
+                In the case of a list of specimen collectors, both terms must
+                contain pipe-separated lists of entries specified in the same
+                order.</p>
+
+            <p>Current collectors might more commonly have an ORCID iD and this
+                should be used in preference to the other identifiers.
+                Historical figures are more commonly found in Wikidata and VIAF.
+                This means that software must be capable of resolving any of the
+                identifier types.</p>
+
+            <p>Each of the standards for personal identifiers stipulates that
+                the identifier must include the full URI, not just the unique
+                identifier. This ensures that the identifier is capable of being
+                used directly by receiving software.</p>
+
+            <p>Darwin Core’s approach is in draft form, but given our adoption
+                of Darwin Core and the likelihood that this draft is further
+                developed at TDWG 2020, this will be the easier standard to
+                adopt in Australia.</p>
+
+            <p>Australasian herbaria should be ensuring its staff apply for an
+                ORCID ID as a matter of urgency if they do not already have one.
+                Funding bodies increasingly expect staff to have one and
+                generate one if necessary.</p>
+
+            <p>Older or deceased staff, especially those with a historical or
+                high profile will commonly already have a Wikidata or VIAF ID,
+                and these can be used rather than generating an ORCID ID for
+                them.</p>
+
+            <p>Australasian herbaria should commence work on Bionomia.net and
+                other online resources to merge their efforts in uniquely
+                identifying scientific staff so that a future version of AVH is
+                more easily used as a resource in data science. Currently, the
+                bar is too high because every application that must use specimen
+                data has to implement a way to handle the name strings for
+                collectors or ignore the issue of different strings representing
+                the same unique individual.</p>
+
+            <h2>Specimen Duplicate provenance</h2>
+
+            <p>See the document “Handling Duplicates” for the background and
+                methodology for supplying specimen provenance data.</p>
+
+            <h1 id="guide">Darwin Core Archive Guide</h1>
+
+            <p class="lead">A Darwin Core Archive
+                (DwC-A)<sup><a href="#dwca">1</a></sup> is a file suitable for
+                exchanging biodiversity data. As of 2020, it is the leading
+                solution to the problem of data exchange between collections and
+                between collections and GBIF.</p>
+
+            <p>In the simplest case, an archive can be represented by a single
+                CSV file if it only contains Darwin Core-compatible data and the
+                header row only uses the names of Darwin Core terms. In the more
+                common case, the file is a Zip archive containing:</p>
+
+            <ul>
+                <li>One <strong>core</strong> file usually representing
+                    occurrence, taxon or event data.
+                </li>
+                <li>One or more <strong>extension</strong> files representing
+                    other data that relates to the core data.
+                </li>
+                <li>A <strong>metadata</strong> file that specifies the
+                    relationships between the core and extension files.
+                </li>
+                <li>A <strong>resource metadata</strong> file that describes the
+                    archive’s content.
+                </li>
+            </ul>
+
+            <p>Each data file can be a CSV or other delimited data file, while
+                the <strong>metadata</strong> and <strong>resource
+                    metadata</strong> files are small XML files defined by DwC-A
+                and Ecological Metadata Language (EML) respectively. For general
+                use, any terms can be used in an archive so long as the sender
+                and the recipient agree on the archive’s content, but for full
+                GBIF support, the <strong>core</strong> file must contain
+                occurrence, taxon or event data and <strong>extension</strong>
+                files must contain data types that are available in
+                <a href="http://rs.gbif.org/extension/">GBIF’s Extension
+                    Repository</a>.</p>
 
             <div class="alert alert-info" role="alert">
-                <i class="far fa-flag"></i> In the examples below, values such as <code>abf543g</code> are used in place
-                of a UUID or URI to aid readability.
+                <i class="far fa-flag"></i> In the examples below, values such
+                as <code>abf543g</code> are used in place of a UUID or URI to
+                aid readability.
             </div>
 
             <h2>Export the data</h2>
 
-            <p>The first step in preparing an archive is to generate a set of delimited text files that contain the data
-                to be sent. Herbarium exchange is usually focussed on specimens, so the core file should contain
-                occurrence data.
+            <p>The first step in preparing an archive is to generate a set of
+                delimited text files that contain the data to be sent. Herbarium
+                exchange is usually focussed on specimens, so the core file
+                should contain occurrence data.
 
-            <p>The names of columns in a file’s header row do not need to match the names of terms in Darwin Core,
-                HISPID 6 or the other standards used in the Herbarium Exchange Protocol 2020, but in this case you <em>must</em>
-                use a <strong>metadata</strong> file to specify the data type for each column.</p>
+            <p>The names of columns in a file’s header row do not need to match
+                the names of terms in Darwin Core, HISPID 6 or the other
+                standards used in the Herbarium Exchange Protocol 2020, but in
+                this case you <em>must</em> use a <strong>metadata</strong> file
+                to specify the data type for each column.</p>
 
             <h3>Occurrences</h3>
 
-            <p>Report a set of occurrence data fields from your institutional specimen database. If it is possible to
-                add a header row, do this as it can be difficult to add it later if the data file is large.</p>
+            <p>Report a set of occurrence data fields from your institutional
+                specimen database. If it is possible to add a header row, do
+                this as it can be difficult to add it later if the data file is
+                large.</p>
 
             <div class="copy-clipboard">
                 <button class="btn btn-outline-secondary btn-sm clip"
@@ -104,15 +575,18 @@ abf543g,PreservedSpecimen,"Mueller, F.",https://www.wikidata.org/wiki/Q708002,le
 nqy908e,PreservedSpecimen,"Thiele, K.R.",https://orcid.org/0000-0002-6658-6636,,
 jjn449z,PreservedSpecimen,"Nicolle, D.",https://viaf.org/viaf/92803422,,
 qao951r,PreservedSpecimen,"Maslin, B.R.|Reid, J.E.",https://viaf.org/viaf/94978723|,,</code></pre>
-                <figcaption class="figure-caption">Figure 1. Example occurrence data for the <strong>core</strong> file.
-                    Note that this includes the recommended fields for agent unique identifiers and type status.
+                <figcaption class="figure-caption">Figure 1. Example occurrence
+                    data for the <strong>core</strong> file. Note that this
+                    includes the recommended fields for agent unique identifiers
+                    and type status.
                 </figcaption>
             </figure>
 
-            <p>For each additional data type that you want to exchange, report the fields of that data to separate
-                <strong>extension</strong> files. Note that a separate file is only required if the archive contains
-                many rows in the <strong>extension</strong> file that point to a single row in the <strong>core</strong>
-                file.</p>
+            <p>For each additional data type that you want to exchange, report
+                the fields of that data to separate <strong>extension</strong>
+                files. Note that a separate file is only required if the archive
+                contains many rows in the <strong>extension</strong> file that
+                point to a single row in the <strong>core</strong> file.</p>
 
             <h3>Resource Relationships</h3>
 
@@ -128,8 +602,8 @@ qao951r,PreservedSpecimen,"Maslin, B.R.|Reid, J.E.",https://viaf.org/viaf/949787
 neo292a,duplicate of,abf543g
 sar404e,duplicate of,nqy908e
 cpz098p,duplicate of,qao951r</code></pre>
-                <figcaption class="figure-caption">Figure3. Example resource relationship data for specimen duplicate
-                    provenance.
+                <figcaption class="figure-caption">Figure3. Example resource
+                    relationship data for specimen duplicate provenance.
                 </figcaption>
             </figure>
 
@@ -149,21 +623,26 @@ nqy908e,Permit available,Collecting Permit,3ff78acc
 nqy908e,Permit available,Import Permit,8c583b91
 jjn449z,Permit available,Collecting Permit,2779127f
 qao951r,Permit available,Collecting Permit,bffd544b</code></pre>
-                <figcaption class="figure-caption">Figure 2. Example permit data. Note that two of the entries point to
-                    the same occurrence record.
+                <figcaption class="figure-caption">Figure 2. Example permit
+                    data. Note that two of the entries point to the same
+                    occurrence record.
                 </figcaption>
             </figure>
 
-            <p>In each file, confirm that the data in each column follows the requirements of the term’s vocabulary and
-                modify the data if necessary. We will describe later how to validate your archive using the DwC-A
-                Validator.</p>
+            <p>In each file, confirm that the data in each column follows the
+                requirements of the term’s vocabulary and modify the data if
+                necessary. We will describe later how to validate your archive
+                using the DwC-A Validator.</p>
 
             <h2>Create the Metadata file</h2>
 
-            <p>Open a text editor and create the metadata XML file by pasting in the following XML and editing the files
-                and field entries to match your data. The <a href="https://dwc.tdwg.org/text/#2-metafile-content">Metafile
-                    documentation</a> explains the elements in the XML structure. An example of a metadata file is
-                available at: <a href="https://github.com/rbgvictoria/dehispidator/blob/master/archive/meta.xml">https://github.com/rbgvictoria/dehispidator/blob/master/archive/meta.xml</a>.
+            <p>Open a text editor and create the metadata XML file by pasting in
+                the following XML and editing the files and field entries to
+                match your data. The
+                <a href="https://dwc.tdwg.org/text/#2-metafile-content">Metafile
+                    documentation</a> explains the elements in the XML
+                structure. An example of a metadata file is available at: <a
+                        href="https://github.com/rbgvictoria/dehispidator/blob/master/archive/meta.xml">https://github.com/rbgvictoria/dehispidator/blob/master/archive/meta.xml</a>.
             </p>
 
             <div class="copy-clipboard">
@@ -210,14 +689,16 @@ qao951r,Permit available,Collecting Permit,bffd544b</code></pre>
             &lt;field index="3" term="http://data.ggbn.org/schemas/ggbn/terms/permitURI"/>
         &lt;/extension>
     &lt;/archive></code></pre>
-                <figcaption class="figure-caption">Figure 4. Example <strong>metadata</strong> file content.
+                <figcaption class="figure-caption">Figure 4. Example <strong>metadata</strong>
+                    file content.
                 </figcaption>
             </figure>
 
             <h2>Create the resource metadata file</h2>
 
-            <p>Open a text editor and create a file called “resource.xml”. Paste in the following XML and edit the field
-                entries to match your details.</p>
+            <p>Open a text editor and create a file called “resource.xml”. Paste
+                in the following XML and edit the field entries to match your
+                details.</p>
 
             <figure class="figure">
                 <pre class="mb-1"><code id="fig5" class="xml">&lt;?xml version="1.0"?>
@@ -245,28 +726,32 @@ qao951r,Permit available,Collecting Permit,bffd544b</code></pre>
         &lt;/contact>
     &lt;/dataset>
 &lt;/eml:eml></code></pre>
-                <figcaption class="figure-caption">Figure 5. Example <strong>resource metadata</strong> file content.
+                <figcaption class="figure-caption">Figure 5. Example <strong>resource
+                    metadata</strong> file content.
                 </figcaption>
             </figure>
 
             <h2>Create the archive</h2>
 
-            <p>Archive each of the above files into a Zip file and you’ve successfully created a Darwin Core Text
-                Archive.</p>
+            <p>Archive each of the above files into a Zip file and you’ve
+                successfully created a Darwin Core Text Archive.</p>
 
             <ul>
-                <li>On Windows, you can create a zip file containing the using 7-Zip or WinZip and either open your data
-                    files, or drag them into the 7-Zip or WinZip window and save.
+                <li>On Windows, you can create a zip file containing the using
+                    7-Zip or WinZip and either open your data files, or drag
+                    them into the 7-Zip or WinZip window and save.
                 </li>
-                <li>On Macintosh, you can select all the files, ctrl click on them and choose “Compress .. items”. The
-                    resulting zip archive will be called “Archive.zip” in the same directory.
+                <li>On Macintosh, you can select all the files, ctrl click on
+                    them and choose “Compress .. items”. The resulting zip
+                    archive will be called “Archive.zip” in the same directory.
                 </li>
             </ul>
 
             <h2>Validate the archive</h2>
 
-            <p>To confirm that the archive’s structure and data is correctly formed,
-                <a href="https://www.gbif.org/tools/data-validator">check it using GBIF’s data validator</a>.</p>
+            <p>To confirm that the archive’s structure and data is correctly
+                formed, <a href="https://www.gbif.org/tools/data-validator">check
+                    it using GBIF’s data validator</a>.</p>
 
             <h2>Send it</h2>
 
@@ -276,14 +761,18 @@ qao951r,Permit available,Collecting Permit,bffd544b</code></pre>
                 <li>sent by email (if it is small enough),</li>
                 <li>placed on a file sharing site such as DropBox,</li>
                 <li>uploaded to AVH/ALA manually, or</li>
-                <li>placed on an externally-visible web server for download by others, such as the ALA.</li>
+                <li>placed on an externally-visible web server for download by
+                    others, such as the ALA.
+                </li>
             </ul>
             <hr class="mt-5 mb-5">
             <h2>References</h2>
             <ol class="mb-5">
-                <li><a id="dwca">GBIF (2017)</a>. Darwin Core Archives – How-to Guide, version 2.0, released on 9 May
-                    2011, (contributed by Remsen D, Braak, K, Döring M, Robertson, T), Copenhagen: Global Biodiversity
-                    Information Facility, accessible online at:
+                <li><a id="dwca">GBIF (2017)</a>. Darwin Core Archives – How-to
+                    Guide, version 2.0, released on 9 May 2011, (contributed by
+                    Remsen D, Braak, K, Döring M, Robertson, T), Copenhagen:
+                    Global Biodiversity Information Facility, accessible online
+                    at:
                     <a href="https://github.com/gbif/ipt/wiki/DwCAHowToGuide">https://github.com/gbif/ipt/wiki/DwCAHowToGuide</a>.
                 </li>
             </ol>
