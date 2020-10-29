@@ -40,24 +40,16 @@
                 Recommendation
             </div>
             <h5 class="mou">Memorandum of Understanding</h5>
-            <h1 class="mt-5">Herbarium Exchange Protocol 2020</h1>
-            <hr class="mt-5 mb-5">
-            <h2>Purpose</h2>
-            <p>To update the Herbarium Exchange Protocols to allow new data to
-                be exchanged to support emerging functionality in ALA and the
-                biodiversity informatics network in general.</p>
+            <h1 class="display-4 mt-5">Herbarium Exchange Protocol 2020</h1>
 
-            <h2>Recommendations</h2>
-            <div class="alert alert-info">
-                <p>That herbaria adopt this protocol and work towards the
-                    recording and exchange of the proposed categories of
-                    data.</p>
-                <hr>
-                <p class="mb-0">That this protocol be implemented in herbaria by
-                    30 June 2021.</p>
-            </div>
-
-            <ul class="nav nav-pills">
+            <ul class="nav nav-pills mt-5 mb-5">
+                <li class="nav-item">
+                    <a href="#purpose" class="nav-link">Purpose</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#recommendations"
+                       class="nav-link">Recommendations</a>
+                </li>
                 <li class="nav-item">
                     <a href="#background" class="nav-link">Background</a>
                 </li>
@@ -67,12 +59,42 @@
                 <li class="nav-item">
                     <a href="#terms" class="nav-link">Terms</a>
                 </li>
-                <li class="nav-item"><a href="#guide" class="nav-link">Darwin
-                    Core Archive Guide </a>
+                <li class="nav-item">
+                    <a href="#guide" class="nav-link">Darwin Core Archive
+                        Guide </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#references" class="nav-link">References </a>
                 </li>
             </ul>
 
-            <h1 id="background">Background</h1>
+            <hr class="mt-5 mb-5">
+
+            <h1 id="purpose" class="mt-5 mb-4">Purpose</h1>
+
+            <p>To update the Herbarium Exchange Protocols to allow new data to
+                be exchanged to support emerging functionality in ALA and the
+                biodiversity informatics network in general.</p>
+
+            <h1 id="recommendations" class="mt-5 mb-4">Recommendations</h1>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <td>1</td>
+                        <td><strong>That herbaria adopt this protocol and work
+                            towards the recording and exchange of the proposed
+                            categories of data.</strong></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><strong>That this protocol be implemented in
+                            herbaria by 30 June 2021.</strong></td>
+                    </tr>
+                </table>
+            </div>
+
+            <h1 id="background" class="mt-5 mb-4">Background</h1>
 
             <p>Herbaria in Australasia have transferred data in several formats
                 in the last 10–20 years. Following the release of HISPID, it was
@@ -185,7 +207,7 @@
                 be exchanged</strong>: By adopting vocabularies (HISPID 6,
                 Darwin Core, ABCD 3, GGBN) rather than a document schema (HISPID
                 5, ABCD 2.06), it is easier to add a new property to an exchange
-                archive.</p>
+                archive. </p>
 
             <p><strong>Typed data</strong>: Darwin Core Archive’s metafile
                 provides metadata about the CSV files in an archive. This
@@ -195,7 +217,7 @@
                 premature end of file errors. These mostly avoid the problem we
                 identified earlier with CSV data files.</p>
 
-            <h1 id="resourcing">Resourcing</h1>
+            <h1 id="resourcing" class="mt-5 mb-4">Resourcing</h1>
 
             <p>Institutions that use this MoU to exchange data should (a) be
                 able to export the data <em>for each property</em> into an
@@ -225,7 +247,7 @@
                 Specify to be more closely involved in the need for Darwin Core
                 support.</p>
 
-            <h1 id="terms">Terms</h1>
+            <h1 id="terms" class="mt-5 mb-4">Terms</h1>
 
             <p>The terms included in this MoU are those in the
                 <a href="https://github.com/hiscom/business/blob/master/mou-technical-addendum.md">
@@ -245,7 +267,7 @@
                 <a href="https://wiki.ggbn.org/ggbn/GGBN_Data_Standard_v1#GGBN_Permit_Vocabulary">GGBN
                     Permit Vocabulary</a>, and in particular Darwin Core’s <a
                         href="http://rs.gbif.org/extension/ggbn/permit.xml">GGBN
-                    Permit Extension</a>.</p>
+                    Permit Extension</a>. </p>
 
             <p>In the AVH MoU Technical Addendum, only <code>permitStatus</code>
                 is necessary for AVH, and any terms included in the data sent to
@@ -358,7 +380,7 @@
 
             <p>For example, there are many ways to refer to
                 <a href="https://en.wikipedia.org/wiki/Ferdinand_von_Mueller">Ferdinand
-                    von Mueller</a>:</p>
+                    von Mueller</a>: </p>
 
             <ul>
                 <li>Ferdinand Jakob Heinrich von Mueller</li>
@@ -496,7 +518,7 @@
             <p>See the document “Handling Duplicates” for the background and
                 methodology for supplying specimen provenance data.</p>
 
-            <h1 id="guide">Darwin Core Archive Guide</h1>
+            <h1 id="guide" class="mt-5 mb-4">Darwin Core Archive Guide</h1>
 
             <p class="lead">A Darwin Core Archive
                 (DwC-A)<sup><a href="#dwca">1</a></sup> is a file suitable for
@@ -751,7 +773,7 @@ qao951r,Permit available,Collecting Permit,bffd544b</code></pre>
 
             <p>To confirm that the archive’s structure and data is correctly
                 formed, <a href="https://www.gbif.org/tools/data-validator">check
-                    it using GBIF’s data validator</a>.</p>
+                    it using GBIF’s data validator</a>. </p>
 
             <h2>Send it</h2>
 
@@ -766,7 +788,7 @@ qao951r,Permit available,Collecting Permit,bffd544b</code></pre>
                 </li>
             </ul>
             <hr class="mt-5 mb-5">
-            <h2>References</h2>
+            <h1 id="references" class="mt-5 mb-4">References</h1>
             <ol class="mb-5">
                 <li><a id="dwca">GBIF (2017)</a>. Darwin Core Archives – How-to
                     Guide, version 2.0, released on 9 May 2011, (contributed by
