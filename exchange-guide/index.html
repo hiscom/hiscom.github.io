@@ -266,10 +266,10 @@
 
             <p>The terms included in this MoU are those in the
                 <a href="https://github.com/hiscom/business/blob/master/mou-technical-addendum.md">
-                    AVH MoU Technical Addendum (2019)</a> plus the following
+                    AVH MoU Technical Addendum (2020)</a> plus the following
                 additional terms.</p>
 
-            <h2>Permits</h2>
+            <h2 id="permits">Permits</h2>
 
             <p>The Nagoya Protocol on Access and Benefit Sharing establishes an
                 obligation on signatories—including Australia—to document the
@@ -352,7 +352,7 @@
                 </dd>
             </dl>
 
-            <h2>Types and Type Status</h2>
+            <h2 id="types-and-type-status">Types and Type Status</h2>
 
             <p>The specimen or specimens that a taxonomist uses to describe and
                 name a new species is a type specimen. These are the most
@@ -385,7 +385,7 @@
                 </dd>
             </dl>
 
-            <h2>Unique identifiers for agents</h2>
+            <h2 id="unique-identifiers">Unique identifiers for agents</h2>
 
             <p>The identity of the people who collected or identified a specimen
                 are important to the taxonomic process. Unfortunately, there is
@@ -407,15 +407,35 @@
 
             <p>Identifying the collectors and identifiers of specimens using
                 unique identifiers makes it possible to disambiguate people with
-                similar names as well as check for error in their names. Several
-                identifier standards now exist to uniquely represent a person in
-                a scientific setting including ORCID, Wikidata and VIAF.</p>
+                similar names as well as check for errors. Several identifier
+                standards now exist to uniquely represent a person in a
+                scientific setting including ORCID, Wikidata and VIAF.</p>
+
+            <div class="card mb-3">
+                <div class="card-header">Unique Identifier Examples</div>
+                <div class="card-body">
+                    <dl class="mb-0">
+                        <dt>ORCID iD</dt>
+                        <dd>https://orcid.org/0000-0001-2345-6789</dd>
+                        <dt>Wikidata ID</dt>
+                        <dd>http://www.wikidata.org/entity/Q708002</dd>
+                        <dt>VIAF ID</dt>
+                        <dd>https://viaf.org/viaf/49224511</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <p>All variation in the way <strong>Ferdinand von Mueller</strong>
+                is cited can be handled by storing and using his concept
+                Wikidata ID,
+                <code>https://www.wikidata.org/entity/Q708002</code>. </p>
 
             <dl>
                 <dt class="h3"><code>recordedByID</code></dt>
                 <dd>
                     <p class="mb-0">
-                        <a href="http://rs.gbif.org/terms/1.0/recordedByID">http://rs.gbif.org/terms/1.0/recordedByID</a>
+                        <a href="https://rs.gbif.org/terms/1.0/recordedByID">
+                            https://rs.gbif.org/terms/1.0/recordedByID</a>
                     </p>
                     <p><em>Optional</em></p>
                     <p>GBIF has begun supporting unique identifiers for
@@ -430,34 +450,28 @@
                         one of the standards listed below.</p>
 
                     <p>This term is used in the core occurrences file, and its
-                        value must be a URI to ensure the resource can be
-                        retrieved. Any of the identifier standards below may be
-                        used.</p>
+                        value must be a pipe-separated (<code>|</code>) list of
+                        absolute URIs consistent with the examples listed above.
+                    </p>
 
                     <p>Some research staff, especially those with a historical
                         or high profile will commonly already have a Wikidata or
                         VIAF ID, and these should be reused rather than
                         generating an ORCID ID for them.</p>
-
-                    <h5>Examples</h5>
-
-                    <dl>
-                        <dt>ORCID iD</dt>
-                        <dd>https://orcid.org/0000-0001-2345-6789</dd>
-                        <dt>Wikidata ID</dt>
-                        <dd>http://www.wikidata.org/entity/Q708002</dd>
-                        <dt>VIAF ID</dt>
-                        <dd>https://viaf.org/viaf/49224511</dd>
-                    </dl>
-
-                    <p>In the example of Ferdinand von Mueller, all variations
-                        in the way he is cited can be handled by storing and
-                        using his concept Wikidata ID, <code>https://www.wikidata.org/entity/Q708002</code>.
+                </dd>
+                <dt class="h3"><code>identifiedByID</code></dt>
+                <dd>
+                    <p class="mb-0">
+                        <a href="https://rs.gbif.org/terms/1.0/identifiedByID">https://rs.gbif.org/terms/1.0/identifiedByID</a>
                     </p>
+                    <p><em>Optional</em></p>
+                    <p>This term links the unique identifiers of the people who
+                        applied a taxon to a specimen. In all other respects it
+                        is treated the same as <code>recordedByID</code>.</p>
                 </dd>
             </dl>
 
-            <h2>Specimen Duplicate provenance</h2>
+            <h2 id="duplicate-provenance">Specimen Duplicate provenance</h2>
 
             <p>See the document “Handling Duplicates” for the background and
                 methodology for supplying specimen provenance data.</p>
